@@ -1,0 +1,13 @@
+---
+switch-lab:
+  hosts:
+    10.175.200.1:
+      new_vlans: 2100-2101,2115
+      tagged_vlan:
+       - 2100
+       - 2101
+       - 2115
+      tagged_ports: 15,16
+      untagged_vlan:
+       - 2100
+      untagged_ports: 15

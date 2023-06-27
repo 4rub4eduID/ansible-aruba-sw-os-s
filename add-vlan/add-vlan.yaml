@@ -1,0 +1,50 @@
+---
+- name: add vlan aruba switch os-s
+  hosts: switch-lab
+  collections:
+    - arubanetworks.aos_switch
+
+  vars:
+    ansible_connection: network_cli
+    ansible_network_os: arubanetworks.aos_switch.arubaoss 
+    ansible_user: !vault |
+        $ANSIBLE_VAULT;1.1;AES256
+        33353236353364353162353461663837633465363565636261363765316235393537376535653134
+        6434386637396438626437633265613266653738393736330a363434613838653063353335393238
+        37636137353662336665343564666232303936323866616331643463613533306330356361396163
+        6537323137316562360a633135303062633935313936303133306137353634646333616235633464
+        3562
+    ansible_password: !vault |
+        $ANSIBLE_VAULT;1.1;AES256
+        65646134356235653332346663316638393864303432656331346432333361346662663133663037
+        6532653831363666646561306362346466363139616538340a646337393033303835373031616465
+        39303765383633386165313536393837653933376338363232643164353934633430366462656134
+        6263303266393737620a343338323337313637656631363736616635373936643464383864646538
+        37376264663238656534636365353266383539636366346232613361333162336239
+
+  tasks:
+  - name: add vlan
+    arubaoss_command:
+      commands:
+        - configure terminal
+        - vlan {{new_vlans}}
+        - write memory
+        - end
+  - name: assign tagged vlan to port
+    arubaoss_command:
+      commands:
+        - configure terminal
+        - vlan {{item}}
+        - tagged {{tagged_ports}}
+        - write memory
+        - end
+    loop: "{{tagged_vlan}}" 
+  - name: assign untagged vlan to port
+    arubaoss_command:
+      commands:
+        - configure terminal
+        - vlan {{item}}
+        - untagged {{untagged_ports}}
+        - write memory
+        - end
+    loop: "{{untagged_vlan}}"
