@@ -24,7 +24,7 @@
 
   tasks:
   - name: running show tech support
-    arubanetworks.aos_switch.arubaoss_command:
+    arubaoss_command:
       commands:
         - show tech
     register: output
