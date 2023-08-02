@@ -6,14 +6,17 @@ ansible
 
 pyhton
 
-aruba aos ansible collection
+ansible-galaxy collection install arubanetworks.aos_switch
 
 pip install --user ansible-pylibssh
 
 pip install paramiko
 
-# run
-ansible-playbook @your.ansible.yaml -i @your.inventory.yaml --vault-password-file @your.vault.password.file
+# run using public key
+ansible-playbook @your.ansible.yaml -i @your.inventory.yaml
+
+# run using encyrypted password
+ansible-playbook @your.ansible.yaml -i @your.inventory.yaml -vault-password-file @your.vault.password.file
 
 # guide
 https://github.com/aruba/aos-switch-ansible-collection
