@@ -1,5 +1,5 @@
 ---
-- name: show tech support aruba switch os-s
+- name: show running config aruba switch os-s
   hosts: switch-lab
   collections:
     - arubanetworks.aos_switch
@@ -23,7 +23,7 @@
         37376264663238656534636365353266383539636366346232613361333162336239
 
   tasks:
-  - name: running show tech support
+  - name: running show running-config
     arubaoss_command:
       commands:
         - show run
